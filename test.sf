@@ -1,0 +1,6 @@
+var first_int = 42;
+var first_string = "string";
+
+if (first_int == 42) {
+    print("hello");
+}
