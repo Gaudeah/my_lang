@@ -16,9 +16,9 @@ var rules = [
     { name: "COMPARE", pattern: /^==/ },
     { name: "EQUAL", pattern: /^=/ },
     { name: "INTEGER", pattern: /^\d+/ },
-    { name: "STRING", pattern: /^[\'\"][\w\d$]+[\'\"]/ },
-    { name: "TEXT", pattern: /^[\w\d$]+/ },
     { name: "FUNC", pattern: /^function\s/ },
+    { name: "STRING", pattern: /^[\'\"][^\'\"]*[\'\"]/ },
+    { name: "TEXT", pattern: /^[\w\d$]+/ },
     { name: "ENDL", pattern: /^;/ }
 ];
 
@@ -56,24 +56,52 @@ function tokenize() {
 }
 
 function if_func(results) {
-    console.log("if : " + JSON.stringify(results));
-    console.log('');
+    var condition = Array();
+    var fill = Array();
+
+    if (!results[0] || results[0].name !== "LEFT_PARENT")
+        error("Unexpected identifier : " + results[0].value);
+    results.splice(0, 1)[0].value;
+
+    while (results[0].name != "RIGHT_PARENT") {
+        condition.push(results[0].value)
+        results.splice(0, 1)[0].value;
+    }
+
+    if (!results[0] || results[0].name !== "RIGHT_PARENT")
+        error("Unexpected identifier : " + results[0].value);
+    results.splice(0, 1)[0].value;
+
+    if (!results[0] || results[0].name !== "LEFT_BRACE")
+        error("Unexpected identifier : " + results[0].value);
+    results.splice(0, 1)[0].value;
+
+    while (results[0].name != "RIGHT_BRACE") {
+        fill.push(results[0].value);
+        results.splice(0, 1)[0].value;
+    }
+
+    if (!results[0] || results[0].name !== "RIGHT_BRACE")
+        error("Unexpected identifier : " + results[0].value);
+    results.splice(0, 1)[0].value;
+
+    console.log('New if : ' + 'conditions = ' + JSON.stringify(condition) + ' to do = ' + JSON.stringify(fill));
 }
 
 function var_func(results) {
     if (!results[0] || results[0].name !== "TEXT")
-        error("Unexepected identifier : " + results[0].value);
+        error("Unexpected identifier : " + results[0].value);
     var name = results.splice(0, 1)[0].value;
 
     if (!results[0] || results[0].value !== "=")
-        error("Unexepected identifier : " + results[0].value);
+        error("Unexpected identifier : " + results[0].value);
     results.splice(0, 1)[0].value;
 
     if (!results[0] || (results[0].name !== "STRING" && results[0].name !== "INTEGER"))
-        error("Unexepected identifier : " + results[0].value);
-    var value = results.splice(0, 1)[0].value;
+        error("Unexpected identifier : " + results[0].value);
+    var value = { type: results[0].name, value: results.splice(0, 1)[0].value };
 
-    console.log(name + " : " + value);
+    console.log('New var : ' + name + " : " + JSON.stringify(value));
 }
 
 function function_func(results) {
@@ -97,7 +125,7 @@ function parsing(results) {
                 break;
             }
         }
-        if (!found) error("Unexepected identifier : " + results[0].value);
+        if (!found) error("Unexpected identifier : " + results[0].value);
     }
 }
 
