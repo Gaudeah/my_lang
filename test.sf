@@ -5,8 +5,7 @@ function func_test(arg) {
     print(arg);
 }
 
-if (first_int == 42) {
+if (first_int < 43) {
     print("Hello ");
     func_test("World !");
 }
-    
