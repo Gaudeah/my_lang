@@ -35,7 +35,7 @@ class MyLang {
 					break;
 				}
 			}
-			if (!found) error("Token not found : " + content);
+			if (!found) error("Token not found : " + content.substr(0, content.indexOf(' ')));
 		}
 		return this.tokens;
 	}
@@ -64,7 +64,7 @@ class MyLang {
 					break;
 				}
 			}
-			if (!found) error("Unexpected identifier : " + tokens[0].value);
+			if (!found) error("Unexpected identifier : " + tokens[0].value.substr(0, token[0].value.indexOf(' ')));
 		}
 	}
 }

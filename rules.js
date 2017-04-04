@@ -13,7 +13,7 @@ module.exports = [
     { name: "INTEGER", pattern: /^\d+/ },
     { name: "FUNC", pattern: /^function\s/ },
     { name: "STRING", pattern: /^[\'\"][^\'\"]*[\'\"]/ },
-    { name: "TEXT", pattern: /^[\w\d$]+/ },
+    { name: "TEXT", pattern: /^[\w\d.$]+/ },
     { name: "COMA", pattern: /^,/ },
     { name: "ENDL", pattern: /^;/ }
 ];
