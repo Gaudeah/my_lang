@@ -1,11 +1,22 @@
 var first_int = 42;
 var first_string = "string";
 
-function func_test(arg.test, 42) {
+if (42 == 42)
+{
+    if (42 == 42)
+    {
+        if (42 == 42)
+        {
+
+        }
+    }
+}
+
+/*function func_test(arg.test, 42) {
     print(arg);
 }
 
 if (first_int < 43) {
     print("Hello ");
     func_test("World !");
-}
+}*/
