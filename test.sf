@@ -1,7 +1,7 @@
 var first_int = 42;
 var first_string = "string";
 
-function func_test(arg) {
+function func_test(arg, 42) {
     print(arg);
 }
 

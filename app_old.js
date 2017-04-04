@@ -129,7 +129,7 @@ function var_func(results) {
 
     if (!results[0] || (results[0].name !== "STRING" && results[0].name !== "INTEGER"))
         error("Unexpected identifier : " + results[0].value);
-    variables.push({ name: name, value: results[0].value });
+    // variables.push({ name: name, value: results[0].value });
     var value = { type: results[0].name, value: results.splice(0, 1)[0].value };
 
     // console.log('New var : ' + name + " : " + JSON.stringify(value));
@@ -169,7 +169,7 @@ function function_func(results) {
         error("Unexpected identifier : " + results[0].value);
     results.splice(0, 1)[0].value;
 
-    functions.push({ name: name });
+    // functions.push({ name: name });
     // console.log('New func : ' + 'arguments = ' + JSON.stringify(argv) + ' to do = ' + JSON.stringify(fill));
 }
 

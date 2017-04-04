@@ -1,7 +1,7 @@
 
 module.exports = [
-    //{ IF: require('if_func') },
-    //{ VAR: var_func },
-    //{ FUNC: function_func }
+    { IF: require('./if_func.js') },
+    { VAR: require('./var_func.js') },
+    { FUNC: require('./function_func.js') }
 ];
 
