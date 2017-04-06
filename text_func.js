@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = (results) => {
-    console.log(results[0]);
     if (results[0] === undefined || results[0].name !== 'TEXT')
         error("Unexpected identifier0 : " + results[0].value);
 
@@ -26,10 +25,6 @@ function getFunction(results)
     {
         if (results[0].name !== "COMA" && results[0].value !== '+')
         {
-           /* if (results[0].value === '+'
-                && results[0].name === 'STRING' && results[1].name === 'STRING')
-                params[params.length - 1].value += results.splice(1, 1)[0].value;
-            else*/
                 params.push(results[0]);
         }
         results.splice(0, 1);

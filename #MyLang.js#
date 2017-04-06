@@ -6,7 +6,7 @@ const parsing_funcs = require('./parsing_funcs.js');
 class MyLang {
 	constructor() { }
 
-	loadFile(filename)
+    loadFile(filename)
 	{
 		if (typeof filename !== 'string')
 			throw 'Filename must be a String.';
@@ -99,6 +99,7 @@ class MyLang {
             {
                 let val = token.value;
                 let end = val.search(/\s/);
+                console.log(token);
                 error(`Unexpected identifier : ${end === -1 ? val : val.substr(0, end)}`);
             }
 		}
@@ -142,6 +143,7 @@ function print_func(params, variables)
     for (let param of params)
     {
         string += param.name === 'TEXT' ? variables[param.value] : param.value;
+        //console.log(param.name === 'TEXT' ? variables[param.value] : param.value);
     }
     console.log(string);
 }
