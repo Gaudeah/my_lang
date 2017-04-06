@@ -15,3 +15,9 @@ module.exports = (results) => {
     let value = { type: results[0].name, value: results.splice(0, 1)[0].value };
     return { name: name, value: value.value };
 };
+
+function error(message)
+{
+    console.log(message);
+    process.exit(1);
+}

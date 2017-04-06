@@ -42,19 +42,23 @@ class MyLang {
 					break;
 				}
 			}
-			if (!found) error(`Token not found : ${content.substr(0, content.search(/\s/))}`);
+			if (!found)
+            {
+                let end = content.search(/\s/);
+                error(`Token not found : ${end !== -1 ? content.substr(0, content.search(/\s/)) : content}`);
+            }
 		}
 		return this.tokens;
 	}
 
-	parse()
+	parse(params)
     {
-		if (this.tokens === undefined)
+		if (params === undefined && this.tokens === undefined)
 			throw 'this.tokens can\'t be found.';
 
 		let comment = false;
-		let tokens = this.tokens;
-		this.result = [];
+		let tokens = params !== undefined ? params : this.tokens;
+		let result = [];
 
 		while (tokens.length)
         {
@@ -76,8 +80,15 @@ class MyLang {
 			{
 				if (func[token.name])
 				{
-					tokens.splice(tokens.indexOf(token), 1);
-                    this.result.push({ name: token.name, value: func[token.name](tokens) });
+					if (token.name === 'TEXT')
+                    {
+                        result.push(func[token.name](tokens));
+                    }
+                    else
+                    {
+                        tokens.splice(0, 1);
+                        result.push({ name: token.name, value: func[token.name](tokens, this) });
+                    }
 					found = true;
 					break;
 				}
@@ -86,11 +97,27 @@ class MyLang {
             {
                 let val = token.value;
                 let end = val.search(/\s/);
+                console.log(token);
                 error(`Unexpected identifier : ${end === -1 ? val : val.substr(0, end)}`);
             }
 		}
-		return this.result;
+		if (params === undefined)
+		    this.result = result;
+		return result;
 	}
+
+	play(arr_parse)
+    {
+        let main = null;
+        for (let elem of arr_parse)
+            if (elem.name === 'FUNC' && elem.value.name === 'main')
+                main = elem.value;
+
+        if (main === null)
+            error('Can\'t find the \'main\' function.');
+
+        
+    }
 }
 
 function error(message)
