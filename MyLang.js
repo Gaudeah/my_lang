@@ -35,10 +35,12 @@ class MyLang {
 
 				if (match)
 				{
+				    let name = rule.name.trim();
+                    let value = name !== 'STRING' ? match[0] : match[0].substr(1, match[0].length - 2);
+
 					found = true;
-					match = match[0];
-					this.tokens.push({ name: rule.name.trim(), value: match });
-					content = content.slice(match.length);
+					this.tokens.push({ name: name, value: value });
+					content = content.slice(match[0].length);
 					break;
 				}
 			}
@@ -109,14 +111,23 @@ class MyLang {
 	play(arr_parse)
     {
         let main = null;
-        for (let elem of arr_parse)
+        let save = arr_parse;
+        let variables = {};
+
+        for (let elem of save)
             if (elem.name === 'FUNC' && elem.value.name === 'main')
                 main = elem.value;
 
         if (main === null)
             error('Can\'t find the \'main\' function.');
 
-        
+        for (let tmp of main.todo)
+        {
+            if (tmp.name === 'VAR')
+                variables[tmp.value.name] = tmp.value.value;
+            else if (tmp.name === 'FUNC' && tmp.value.name === 'print')
+                print_func(tmp.value.params, variables);
+        }
     }
 }
 
@@ -124,6 +135,17 @@ function error(message)
 {
 	console.log(message);
 	process.exit(1);
+}
+
+function print_func(params, variables)
+{
+    let string = "";
+    for (let param of params)
+    {
+        string += param.name === 'TEXT' ? variables[param.value] : param.value;
+        //console.log(param.name === 'TEXT' ? variables[param.value] : param.value);
+    }
+    console.log(string);
 }
 
 module.exports = MyLang;

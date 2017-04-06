@@ -7,7 +7,7 @@ module.exports = (results) => {
 
     if (!results[0] || results[0].value !== "=")
         error("Unexpected identifier : " + results[0].value);
-    results.splice(0, 1)[0].value;
+    results.splice(0, 1);
 
     if (!results[0] || (results[0].name !== "STRING" && results[0].name !== "INTEGER"))
         error("Unexpected identifier : " + results[0].value);

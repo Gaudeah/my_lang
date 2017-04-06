@@ -15,7 +15,7 @@ console.log('[ ] Tokenize content...');
 mylang.tokenize();
 console.log('[ ] Parse content...');
 let result = mylang.parse();
-console.log(JSON.stringify(result, null, 2));
+//console.log(JSON.stringify(result, null, 2));
 
 console.log('\n====================================\n');
 

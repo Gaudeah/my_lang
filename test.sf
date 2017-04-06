@@ -1,11 +1,15 @@
-var first_int = 42;
-var first_string = "string";
+
 
 function main()
 {
+    var first_int = 42;
+    var first_string = "string";
+
     /*if (first_int < 43)
     {*/
-        print("Hello ");
-        print("World !");
+        print("Hello " + "World !");
+        print(first_int);
+        print(first_string);
+        print("Test : " + first_int + " != " + first_string);
     /*}*/
 }
