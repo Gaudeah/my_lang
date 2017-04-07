@@ -1,0 +1,31 @@
+
+function main()
+{
+    var first_int = 42;
+    var first_string = "string";
+
+
+    hello_world();
+    print(first_int);
+    print(first_string);
+    encore_un_autre_print();
+
+    first_int = 4242;
+    first_string = "une autre string";
+    encore_un_autre_print();
+}
+
+function hello_world()
+{
+    print("Hello " + "World !");
+}
+
+function useless_fonction()
+{
+    print("Hello " + "World !");
+}
+
+function encore_un_autre_print()
+{
+    print("Test : " + first_int + " != " + first_string);
+}
